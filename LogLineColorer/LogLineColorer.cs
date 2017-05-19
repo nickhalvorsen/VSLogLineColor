@@ -60,9 +60,10 @@ namespace LogLineColorer
             var result = new List<ClassificationSpan>();
 
 
-            var lineText = span.GetText();
+            var lineText = span.GetText().TrimStart().ToLower();
 
-            if (lineText.TrimStart().ToLower().StartsWith("logger.log"))
+            if (lineText.Contains("logger.log")
+                && !lineText.StartsWith("//"))
             {
                 result.Add(new ClassificationSpan(new SnapshotSpan(span.Snapshot, new Span(span.Start, span.Length)), this.classificationType));
             }
